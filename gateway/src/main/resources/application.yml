@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: "gateway"
+    
+server:
+  port: 8080
+
+opentracing:
+  jaeger:
+    udp-sender:
+      host: "jaeger"
+      port: 6831
+    enable-b3-propagation: true

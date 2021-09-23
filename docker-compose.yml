@@ -1,0 +1,51 @@
+version: "3.6"
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:1.7
+    ports:
+      - 5775:5775/udp
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 5778:5778
+      - 16686:16686
+      - 14268:14268
+      - 9411:9411
+  gateway:
+    build:
+      context: ./gateway/
+    ports:
+      - 8080:8080
+    links:
+      - jaeger
+      - users
+      - inventory
+  inventory:
+    build:
+      context: ./inventory/
+    ports:
+      - 8081:8080
+    environment:
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_SERVICE_NAME=inventory
+      - JAEGER_REPORTER_LOG_SPANS=false
+      - JAEGER_SAMPLER_TYPE=const
+      - JAEGER_SAMPLER_PARAM=1
+      - JAEGER_PROPAGATION=b3
+    links:
+      - jaeger
+      - users
+  users:
+    build:
+      context: ./users/
+    ports:
+      - 8082:8080
+    links:
+      - jaeger
+  security:
+    build:
+      context: ./security/
+    ports:
+      - 8083:8080
+    links:
+      - jaeger
+
