@@ -1,1 +1,9 @@
-This is a minimal project to represent an issue with Spring Boot v 1.4.0.M3 and maven-failsafe-plugin.
+
+
+
+
+Swagger json:
+http://localhost:8080/v2/api-docs 
+
+Swagger UI
+http://localhost:8080/swagger-ui/#/

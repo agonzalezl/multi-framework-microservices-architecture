@@ -63,6 +63,21 @@
 			<scope>runtime</scope>
 		</dependency>
         
+        
+        <!-- Swagger-->
+        <!-- http://localhost:8080/v2/api-docs -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
         <!-- Opentracing-->
 		<dependency>
 			<groupId>io.opentracing.contrib</groupId>
@@ -81,6 +96,8 @@
 			<artifactId>opentracing-spring-jaeger-web-starter</artifactId>
 			<version>3.3.1</version>
 		</dependency>
+
+
 
         <!-- Test -->
         <dependency>
