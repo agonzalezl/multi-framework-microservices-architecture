@@ -57,20 +57,35 @@ public class JwtRequestFilter implements GatewayFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
 
-        System.out.println("Filterino");
+        if(!request.getHeaders().containsKey("Authorization")){
+            ServerHttpResponse response = exchange.getResponse();
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+            return response.setComplete();
+        }
+        String authHeader = request.getHeaders().get("Authorization").get(0);
 
-            try{
-                Mono<String> res = security.validate();
-                return res.flatMap(value -> {
-                    exchange.getRequest().mutate().header("x-auth-user-id", "jwt").build();
+        if(!authHeader.contains("Bearer ")){
+            ServerHttpResponse response = exchange.getResponse();
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+            return response.setComplete(); 
+        }
+
+        String token = authHeader.replace("Bearer ", "");
+
+        try{
+            Mono<String> res = security.validate(token);
+            return res
+                .onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token"))  )
+                .flatMap(value -> {
+                    exchange.getRequest().mutate().header("x-auth-user-id", token).build();
                     return chain.filter(exchange);
                 });
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
 
-            return chain.filter(exchange);
+        return chain.filter(exchange);
     }
 }
 

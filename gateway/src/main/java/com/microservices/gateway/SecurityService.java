@@ -26,26 +26,25 @@ public class SecurityService {
 
 
     
-    public Mono<String> validate() {
+    public Mono<String> validate(String token) {
         
        // return this.webClient.get().uri("/validate").bodyToMono(String.class);
         
         
-        return this.webClient.get().uri("/validate")
-        
-        .exchangeToMono(response -> {
-            if (response.statusCode().is2xxSuccessful()) {
-                //Mono<String> value = response.bodyToMono(String.class).defaultIfEmpty("");
-                //System.out.println("Hola!!! "+value);
-                return Mono.just("");
-                //return  value;//Mono.empty().then(); //response.bodyToMono(String.class);
-            } else { // maybe this is not necessary
-                //return response.createException().flatMap(Mono::error);
-                //return response.bodyToMono(String.class);
-                return Mono.just("");
-                //return  response.bodyToMono(String.class).defaultIfEmpty("");
-            }
-        });
+        return this.webClient.get().uri("/validate").header("token", token)
+            .exchangeToMono(response -> {
+                if (response.statusCode().is2xxSuccessful()) {
+                    //Mono<String> value = response.bodyToMono(String.class).defaultIfEmpty("");
+                    //System.out.println("Hola!!! "+value);
+                    return Mono.just("");
+                    //return  value;//Mono.empty().then(); //response.bodyToMono(String.class);
+                } else { // maybe this is not necessary
+                    return response.createException().flatMap(Mono::error);
+                    //return response.bodyToMono(String.class);
+                    //return Mono.just("");
+                    //return  response.bodyToMono(String.class).defaultIfEmpty("");
+                }
+            });
 
         
     }

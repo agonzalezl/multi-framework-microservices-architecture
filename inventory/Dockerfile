@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:15
 
 ADD target/inventory-bootable.jar /app.jar
 

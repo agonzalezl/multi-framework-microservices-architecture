@@ -8,16 +8,20 @@
   <packaging>war</packaging>
   	<name>inventory</name>
 	<description>inventory</description>
+  
+  <!--
   <parent>
 		<groupId>com.example</groupId>
 		<artifactId>microservices</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
   </parent>
+  -->
+
   <properties>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <version.wildfly>23.0.2.Final</version.wildfly>
+    <maven.compiler.target>15</maven.compiler.target>
+    <version.wildfly>24.0.0.Final</version.wildfly>
     <failOnMissingWebXml>false</failOnMissingWebXml>
-    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.source>15</maven.compiler.source>
     <final.name>inventory</final.name>
   </properties>
 
@@ -52,9 +56,20 @@
       <build>
         <plugins>
           <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-war-plugin</artifactId>
+              <version>3.3.1</version>
+          </plugin>
+          <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+          </plugin>
+          <plugin>
             <groupId>org.wildfly.plugins</groupId>
             <artifactId>wildfly-jar-maven-plugin</artifactId>
-            <version>2.0.2.Final</version>
+            <!--<version>2.0.2.Final</version>-->
+            <version>3.0.0.Final</version>
             <executions>
               <execution>
                 <goals>

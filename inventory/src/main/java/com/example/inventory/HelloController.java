@@ -1,11 +1,8 @@
 package com.example.inventory;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-
-import com.example.inventory.dao.ServiceBean;
 
 /**
  *
@@ -14,20 +11,10 @@ import com.example.inventory.dao.ServiceBean;
 @Singleton
 public class HelloController {
 
-
-    @Inject
-    private ServiceBean ejb;
-
     @GET
-    @Path("/test")
-    public String test() {
-        
-        return "Ok size "+(ejb.findAll().size());
-    }
-
-    @GET
-    @Path("/hello")
+    @Path("/")
     public String hello() {
-        return "General Kenobi";
+        return "Hello world!";
     }
+
 }

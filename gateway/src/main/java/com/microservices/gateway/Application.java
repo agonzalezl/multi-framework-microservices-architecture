@@ -41,10 +41,11 @@ public class Application {
 				.uri(httpUri))
 			.route(p -> p
 				.path("/inventory/**")
-					.filters(f -> f.stripPrefix(1)
-					//.filter(filter)
+				.filters(f -> f
+					.stripPrefix(1)
+					.filter(filter)
 				)
-				.uri(httpUri))
+				.uri("http://inventory:8080"))
 			.route(p -> p
 				.path("/authenticate")
 				//.filters(f -> f.stripPrefix(1))

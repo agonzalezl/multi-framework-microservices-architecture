@@ -1,0 +1,11 @@
+query ($year: Int, $title: String){
+    getFilmByFields(
+            year: $year
+            title: $title
+    ){
+        film{
+            title
+            year
+        }
+    }
+}

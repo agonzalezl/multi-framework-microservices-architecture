@@ -3,6 +3,7 @@ package com.microservices.security.controllers;
 import com.microservices.security.MyUserDetailsService;
 import com.microservices.security.models.AuthenticationRequest;
 import com.microservices.security.models.AuthenticationResponse;
+import com.microservices.security.repositories.UserRepository;
 import com.microservices.security.util.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 class HelloWorldController {
 
 	@Autowired
+	UserRepository repository;
+
+	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
@@ -36,13 +40,13 @@ class HelloWorldController {
 
 	@RequestMapping(value =  "/test", method = RequestMethod.GET )
 	public String firstPage() {
-		return "Hello World!";
+		return "Hello World! "+repository.findAll().size();
 	}
 
 	@RequestMapping(value = "/validate" , method = RequestMethod.GET)
-	public ResponseEntity<?> validateToken() {
+	public ResponseEntity<?> validateToken(@RequestHeader("token") String token) {
 		// ResponseEntity<?>
-/*@RequestHeader("token") String token
+
 		try{
 			String username = jwtUtil.extractUsername(token);
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
@@ -53,8 +57,7 @@ class HelloWorldController {
 			// Expired token
 		}
 
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();*/
-		return ResponseEntity.ok().build();
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		//return "Hello world";
 	}
 
