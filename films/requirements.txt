@@ -1,0 +1,7 @@
+flask==1.0.2
+flask-sqlalchemy==2.3.0
+psycopg2==2.8.4
+jaeger-client
+Flask-Opentracing
+ariadne
+flask-cors

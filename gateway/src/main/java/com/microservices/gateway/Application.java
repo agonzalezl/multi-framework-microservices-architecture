@@ -47,6 +47,13 @@ public class Application {
 				)
 				.uri("http://inventory:8080"))
 			.route(p -> p
+				.path("/search/**")
+				.filters(f -> f
+					.stripPrefix(1)
+					.filter(filter)
+				)
+				.uri("http://searches:8000"))
+			.route(p -> p
 				.path("/authenticate")
 				//.filters(f -> f.stripPrefix(1))
 				.uri("http://security:8080"))

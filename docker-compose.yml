@@ -23,7 +23,7 @@ services:
       - 14268:14268
       - 9411:9411
   gateway:
-    command: "echo Pass"
+    #command: "echo Pass"
     build:
       context: ./gateway/
     ports:
@@ -33,7 +33,7 @@ services:
       - users
       - inventory
   users:
-    command: "echo Pass"
+    #command: "echo Pass"
     build:
       context: ./users/
     ports:
@@ -41,7 +41,7 @@ services:
 
   
   inventory:
-    command: "echo Pass"
+    #command: "echo Pass"
     build:
       context: ./inventory/
     ports:
@@ -57,7 +57,7 @@ services:
       - jaeger
       - users
   security:
-    command: "echo Pass"
+    #command: "echo Pass"
     build:
       context: ./security/
     ports:

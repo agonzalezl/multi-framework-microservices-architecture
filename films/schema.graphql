@@ -1,0 +1,34 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Film {
+    id: ID!
+    title: String!
+    year: Int!
+}
+
+type FilmResult {
+    success: Boolean!
+    errors: [String]
+    film: Film
+}
+
+type FilmsResult {
+    success: Boolean!
+    errors: [String]
+    film: [Film]
+}
+
+type Query {
+    listFilms: FilmsResult!
+    getFilm(id: ID!): FilmResult!
+    getFilmByFields(title: String, year: Int): FilmsResult!
+}
+
+type Mutation {
+    createFilm(title: String!, year: Int!): FilmResult!
+    updateFilm(id: ID!, title: String, year: Int): FilmResult!
+    deleteFilm(id: ID): FilmResult!
+}

@@ -3,3 +3,6 @@ uvicorn[standard]
 sqlalchemy
 pydantic
 psycopg2
+jaeger-client
+opentracing-instrumentation
+Starlette-Opentracing
